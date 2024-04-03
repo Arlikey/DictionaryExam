@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dictionary.Scripts;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,15 @@ namespace Dictionary.UI
     internal class AbstractMenu : IMenu
     {
         public int selectedItemIndex = 0;
+        protected Scripts.Dictionary dictionary;
         protected string mainText;
         protected string[] menuItems;
-        
+
+        public AbstractMenu(Scripts.Dictionary dictionary)
+        {
+            this.dictionary = dictionary;  
+    }
+
         public void DisplayMenu(string mainText, string[] menuItems)
         {
             Console.Clear();
@@ -61,6 +68,5 @@ namespace Dictionary.UI
                     break;
             }
         }
- 
     }
 }

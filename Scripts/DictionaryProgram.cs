@@ -9,10 +9,16 @@ namespace Dictionary.Scripts
 {
     internal class DictionaryProgram
     {
-        private static _Dictionary dictionary = new _Dictionary();
-        private static MainMenu mainMenu = new MainMenu();
+        private Dictionary dictionary;
+        private MainMenu mainMenu;
 
-        public static void Start()
+        public DictionaryProgram(Dictionary dictionary)
+        {
+            this.dictionary = dictionary;
+            mainMenu = new MainMenu(dictionary);
+        }
+
+        public void Start()
         {
             mainMenu.StartMenu();
         }
