@@ -13,9 +13,8 @@ namespace Dictionary.UI
     {
         private CreateDictionarySubMenu createDictionarySubMenu;
         private GoToDictionarySubMenu goToDictionarySubMenu;
-        public string dictionaryDescription = "";
 
-        string mainText;
+        string menuText;
         string[] menuItems = { "Создать словарь", "Перейти в словарь", "Выход" };
 
         public MainMenu(Scripts.Dictionary dictionary) : base(dictionary) { }
@@ -23,20 +22,20 @@ namespace Dictionary.UI
         public void StartMenu()
         {
 
-            DisplayMenu(mainText, menuItems);
+            DisplayMenu(menuText, menuItems);
 
             while (true)
             {
-                RefreshDictionaryStatus();
-                mainText = $"""
+                
+                menuText = $"""
                     Добро пожаловать в "Словарь"    
                    
-                {dictionaryDescription}
+                {RefreshDictionaryStatus()}
 
                 Выберите действие:
 
                 """;
-                DisplayMenu(mainText, menuItems);
+                DisplayMenu(menuText, menuItems);
 
                 MenuManagement(menuItems);
 
@@ -55,15 +54,14 @@ namespace Dictionary.UI
                     goToDictionarySubMenu.StartMenu();
                     break;
                 case 2:
-                    fileAccess.SerializeDictionary(dictionary);
                     Environment.Exit(0);
                     break;
             }
         }
 
-        public void RefreshDictionaryStatus()
+        public string RefreshDictionaryStatus()
         {
-            dictionaryDescription = $"""
+            return $"""
              {(!string.IsNullOrWhiteSpace(dictionary.TypeOfDictionary) ? $"Словарь создан:\n\tТип: {dictionary.TypeOfDictionary}" +
             $"\n\tКоличество слов: {dictionary.WordsAndTranslations.Count}" : "Словарь не создан!")}
             """;
@@ -73,7 +71,7 @@ namespace Dictionary.UI
     internal class CreateDictionarySubMenu : AbstractMenu
     {
         private bool isBack = false;
-        new string mainText = """""""
+        new string menuText = """""""
                     Укажите тип словаря:
 
                 """"""";
@@ -83,13 +81,13 @@ namespace Dictionary.UI
 
         public void StartMenu()
         {
-            DisplayMenu(mainText, menuItems);
+            DisplayMenu(menuText, menuItems);
 
             while (!isBack)
             {
                 MenuManagement(menuItems);
 
-                DisplayMenu(mainText, menuItems);
+                DisplayMenu(menuText, menuItems);
             }
 
             isBack = false;
@@ -118,7 +116,7 @@ namespace Dictionary.UI
     {
         private ShowDictionarySubMenu showDictionarySubMenu;
         private bool isBack = false;
-        new string mainText = """""""
+        new string menuText = """""""
                     Выберите действия для словаря:
 
                 """"""";
@@ -129,13 +127,13 @@ namespace Dictionary.UI
 
         public void StartMenu()
         {
-            DisplayMenu(mainText, menuItems);
+            DisplayMenu(menuText, menuItems);
 
             while (!isBack)
             {
                 MenuManagement(menuItems);
 
-                DisplayMenu(mainText, menuItems);
+                DisplayMenu(menuText, menuItems);
             }
 
             isBack = false;
@@ -174,25 +172,25 @@ namespace Dictionary.UI
         {
             private bool isBack = false;
             new string[] menuItems = { "Назад" };
-            new string mainText;
+            new string menuText;
 
             public ShowDictionarySubMenu(Scripts.Dictionary dictionary) : base(dictionary) { }
 
             public void StartMenu()
             {
-                mainText = $""" 
+                menuText = $""" 
                     Список слов:
 
                     {dictionary.GetAllWords()}
                     """;
-                DisplayMenu(mainText, menuItems);
+                DisplayMenu(menuText, menuItems);
 
                 while (!isBack)
                 {
 
                     MenuManagement(menuItems);
 
-                    DisplayMenu(mainText, menuItems);
+                    DisplayMenu(menuText, menuItems);
                 }
 
                 isBack = false;

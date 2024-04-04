@@ -12,7 +12,7 @@ namespace Dictionary.UI
     {
         public int selectedItemIndex = 0;
         protected Scripts.Dictionary dictionary;
-        protected string mainText;
+        protected string menuText;
         protected string[] menuItems;
 
         public AbstractMenu(Scripts.Dictionary dictionary)
@@ -20,10 +20,10 @@ namespace Dictionary.UI
             this.dictionary = dictionary;  
     }
 
-        public void DisplayMenu(string mainText, string[] menuItems)
+        public void DisplayMenu(string menuText, string[] menuItems)
         {
             Console.Clear();
-            Console.WriteLine(mainText);
+            Console.WriteLine(menuText);
 
             for (int i = 0; i < menuItems.Length; i++)
             {
